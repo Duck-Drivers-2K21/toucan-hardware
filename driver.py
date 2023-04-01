@@ -39,9 +39,8 @@ try:
         set_pos(pwm, pos)
     set_pos(pwm, 0)
     out = capture_image(camera)
-    cv2.waitKey(0)
+    cv2.imwrite("result.png", out)
 except KeyboardInterrupt:
     camera.release()
-    cv2.destroyAllWindows()
     pwm.stop()
     GPIO.cleanup()

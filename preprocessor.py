@@ -1,6 +1,9 @@
 import cv2
 import numpy as np
+from PIL import Image
 
+"""
+# TODO: Extend to work with multiple images (we want to do it pairwise)
 img1 = cv2.imread("free_space_right_pan.png")
 img2 = cv2.imread("free_space_left_pan.png")
 
@@ -31,8 +34,30 @@ res[0 : img2.shape[0], 0 : img2.shape[1]] = img2
 
 cv2.imwrite("result.png", res)  # TODO: Add date & time in the name
 
+print(res.shape)
 
-# TODO: Cut down the image to not include the empty portion.
+
+# TODO: Cut down the final image to not include the empty portion.
+"""
+
+img = Image.open("result.png")
+width, height = img.size
+
+print(width, height)
+for x in range(width // 2, width):
+    for y in range(height):
+        pixel = img.getpixel((x, y))
+        if pixel != (0, 0, 0, 255):  # Check if pixel is not black
+            break
+    if pixel != (0, 0, 0, 255):  # Check if a non-black pixel was found
+        break
+
+# Crop the image to remove the black portion on the right
+if x < width - 1:
+    img = img.crop((0, 0, x+1, height))
+
+print(img.size)
+img.save("new_image.png")
 
 
 # Display the result
