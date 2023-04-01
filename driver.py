@@ -24,9 +24,8 @@ if __name__ == '__main__':
         for i in range(len(images)):
             cv2.imwrite(f"img{i}.png", images[i])
         print("Combining images and writing to file")
-        cv2.imwrite("result.png", preprocessor.combine_images(images))
+        cv2.imwrite(f"result_{i}.png", preprocessor.combine_images(images))  # TODO: Send result to pipeline
         reverse = not reverse
-        time.sleep(2)
 
     pwm.stop()
     GPIO.cleanup()
