@@ -16,31 +16,35 @@ def capture_image(camera):
         print("Failed to capture image!")
     return frame
 
-
-camera = cv2.VideoCapture(0)  # We're using a single camera
-
-if not camera.isOpened():
-    print("Failed to open camera! Restart.")
-    exit()
-
-frequency = 50  # in hz
-servo_pin = 22
-
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(servo_pin, GPIO.OUT)
-
-pwm = GPIO.PWM(servo_pin, frequency)
-pwm.start(0)
-
-try:
+def capture_view(camera, pwm):
+    images = []
     for pos in range(0, 181, 45):
         print(pos)
-        # TODO: Take a picture here. Place it in a tmp directory then combine them together.
+        images.append(capture_image(camera))
         set_pos(pwm, pos)
-    set_pos(pwm, 0)
-    out = capture_image(camera)
-    cv2.imwrite("result.png", out)
-except KeyboardInterrupt:
+    set_pos(pwm, 0)  # Reset camera position
+    # Save images to file  # TODO: We can simply pass them to the other script.
+    for i in range(images):
+        cv2.imwrite(f"result_{i}.png", images[i])
+
+if __name__ == '__main__':
+    # Camera setup
+    camera = cv2.VideoCapture(0)  # We're using a single camera
+    if not camera.isOpened():
+        print("Failed to open camera! Restart.")
+        exit()
+
+    frequency = 50  # in hz
+    servo_pin = 22
+
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(servo_pin, GPIO.OUT)
+
+    pwm = GPIO.PWM(servo_pin, frequency)
+    pwm.start(0)
+
+    capture_view(camera, pwm)
+
     camera.release()
     pwm.stop()
     GPIO.cleanup()
