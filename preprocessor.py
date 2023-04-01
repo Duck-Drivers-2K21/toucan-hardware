@@ -38,12 +38,21 @@ def pair_wise_match(img1, img2):
   res[0 : img2.shape[0], 0 : img2.shape[1]] = img2
   return crop_image(res)  # Crop any empty pixels to reduce image sizes
 
-def combine_images(images: list):
+def _combine_images(images: list):
   prev_res = images[0]
   for i in range(1, len(images)):
     prev_res = pair_wise_match(prev_res, images[i])
-    cv2.imwrite(f"res_{i-1}_with_{i}.png", prev_res)
+    # cv2.imwrite(f"res_{i-1}_with_{i}.png", prev_res)
   return prev_res
+
+
+def combine_images(images: list):
+  # Split array down the middle. Go from left to right and then right to left
+  # Finally combine them together
+  mid_idx = (len(images) - 1) // 2
+  h1 = images[:mid_idx]
+  h2 = images[mid_idx:].reverse()
+  return pair_wise_match(h1, h2)
 
 # Test...
 # image1 = cv2.imread('image1.png')
