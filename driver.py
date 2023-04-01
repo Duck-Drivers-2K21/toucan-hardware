@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     images = observation.capture_view(pwm)
     for i in range(len(images)):
-        cv2.imwrite(f"result_{i}.png", images[i])
+        cv2.imwrite(f"img{i}.png", images[i])
 
     pwm.stop()
     GPIO.cleanup()

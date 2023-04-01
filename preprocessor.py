@@ -4,8 +4,8 @@ import numpy as np
 
 
 # TODO: Extend to work with multiple images (we want to do it pairwise)
-img1 = cv2.imread("free_space_right_pan.png")
-img2 = cv2.imread("free_space_left_pan.png")
+img1 = cv2.imread("img1.png")
+img2 = cv2.imread("img2.png")
 
 # Find keypoints and descriptors in both images
 orb = cv2.ORB_create()
