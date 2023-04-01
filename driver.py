@@ -19,9 +19,9 @@ def capture_image(camera):
 def capture_view(camera, pwm):
     images = []
     for pos in range(0, 181, 45):
-        print(f"Capturing image at angle{pos}.")
+        print(f"Capturing image at angle {pos}.")
         images.append(capture_image(camera))
-        time.sleep(1)
+        time.sleep(10)
         set_pos(pwm, pos)
     set_pos(pwm, 0)  # Reset camera position
     # Save images to file  # TODO: We can simply pass them to the other script.
