@@ -51,8 +51,8 @@ def combine_images(images: list):
   # Finally combine them together
   mid_idx = (len(images) - 1) // 2
   h1 = images[:mid_idx]
-  h2 = images[mid_idx:].reverse()
-
+  t_h2 = images[mid_idx:]
+  h2 = t_h2[::-1]
   return pair_wise_match(_combine_images(h1), _combine_images(h2))
 
 # Test...
