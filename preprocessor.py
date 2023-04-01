@@ -55,11 +55,12 @@ def pair_wise_match(img1, img2):
 #   return pair_wise_match(_combine_images(h2), _combine_images(h1))
 
 def combine_images(images: list):
-  prev_res = images[0]
+  if len(images) == 1:
+    return images[0]
+  combined = []
   for i in range(1, len(images)):
-    prev_res = pair_wise_match(prev_res, images[i])
-    cv2.imwrite(f"res_{i-1}_with_{i}.png", prev_res)
-  return prev_res
+    combined.append(pair_wise_match(images[i - 1], images[i]))
+  return combine_images(combined)
 
 
 # Test...
