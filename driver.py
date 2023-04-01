@@ -19,26 +19,11 @@ def set_pos(pwm, pos):
     time.sleep(2)
 
 try:
-    for pos in range(0, 181, 90):
+    for pos in range(0, 181, 45):
         print(pos)
+        # TODO: Take a picture here. Place it in a tmp directory then combine them together.
         set_pos(pwm, pos)
     set_pos(pwm, 0)
-    
 except KeyboardInterrupt:
     pwm.stop()
     GPIO.cleanup()
-
-#try:
-#  while True:
-#    for x in range(11):
-#      pwm.ChangeDutyCycle(control[x])
-#      time.sleep(1)
-#      print(x)
-#    for x in range(9,0,-1):
-#      pwm.ChangeDutyCycle(control[x])
-#      time.sleep(1)
-#      print(x)
-#except KeyboardInterrupt:
-#  GPIO.cleanup()
-
-
