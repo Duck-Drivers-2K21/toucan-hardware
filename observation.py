@@ -21,8 +21,9 @@ def set_pos(pwm, pos):
 
 def capture_view(pwm) -> list:
     images = []
-    for pos in range(40, 141, 20):
+    for pos in range(60, 121, 20):
         set_pos(pwm, pos)
         images.append(capture_image(0))
         time.sleep(1)
+    print(f"Captured {len(images)} images.")
     return images
