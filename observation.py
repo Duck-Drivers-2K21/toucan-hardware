@@ -26,9 +26,9 @@ def set_pos(pwm, pos):
 def capture_view(pwm, reverse = False) -> list:
     images = []
     start = START if not reverse else END
-    end = END if not reverse else START
+    end = END + 1 if not reverse else START - 1
     inc = INC if not reverse else -INC
-    for pos in range(start, end + 1, inc):
+    for pos in range(start, end, inc):
         set_pos(pwm, pos)
         images.append(capture_image(0))
         time.sleep(1)
