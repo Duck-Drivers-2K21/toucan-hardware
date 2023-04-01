@@ -46,7 +46,7 @@ def get_frame(camera_idx):
     pwm.start(0)
 
     print(f"Capturing images (reverse={reverse})")
-    images = observation.capture_view(camera_idx, pwm, reverse)
+    images = capture_view(camera_idx, pwm, reverse)
     # for i in range(len(images)):
     #     cv2.imwrite(f"img{i}.png", images[i])
     pwm.stop()
