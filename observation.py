@@ -33,4 +33,6 @@ def capture_view(pwm, reverse = False) -> list:
         images.append(capture_image(0))
         time.sleep(1)
     print(f"Captured {len(images)} images.")
+    if reverse:
+        images.reverse()
     return images
