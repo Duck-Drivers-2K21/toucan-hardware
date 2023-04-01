@@ -1,4 +1,5 @@
 import observation
+import preprocessor
 import cv2
 import RPi.GPIO as GPIO
 
@@ -15,6 +16,8 @@ if __name__ == '__main__':
     images = observation.capture_view(pwm)
     for i in range(len(images)):
         cv2.imwrite(f"img{i}.png", images[i])
+
+    preprocessor.pair_wise_match(images[0], images[1])
 
     pwm.stop()
     GPIO.cleanup()
