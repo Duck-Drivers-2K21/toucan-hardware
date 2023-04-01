@@ -17,7 +17,8 @@ if __name__ == '__main__':
     for i in range(len(images)):
         cv2.imwrite(f"img{i}.png", images[i])
 
-    preprocessor.pair_wise_match(images[0], images[1])
+    result = preprocessor.combine_images(images)
+    cv2.imwrite("result.png", result)
 
     pwm.stop()
     GPIO.cleanup()

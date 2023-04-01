@@ -1,6 +1,17 @@
 import cv2
 import numpy as np
-# from PIL import Image
+
+def crop_image(img):
+  # Go from the rightmost position and start moving left
+  columns = img.sum(axis=0)
+  co_point = 0  # Cutoff point
+  for col in range(columns.shape[0] - 1, -1, -1):
+    if np.all(columns[col] == 0):
+      co_point = col
+    else:
+      break
+  print(co_point)
+  return img[:, :co_point]
 
 def pair_wise_match(img1, img2):
   # Find keypoints and descriptors
@@ -25,28 +36,15 @@ def pair_wise_match(img1, img2):
   # Warp images
   res = cv2.warpPerspective(img1, homography, (img1.shape[1] + img2.shape[1], img2.shape[0]))
   res[0 : img2.shape[0], 0 : img2.shape[1]] = img2
-  print(res.shape)
-  cv2.imwrite("result.png", res)  # TODO: Add date & time in the name
-  cv2.imwrite("cropped_res.png", crop_image(res))
-  return res
-
-def crop_image(img):
-  # Go from the rightmost position and start moving left
-  columns = img.sum(axis=0)
-  co_point = 0  # Cutoff point
-  for col in range(columns.shape[0] - 1, -1, -1):
-    if np.all(columns[col] == 0):
-      co_point = col
-    else:
-      break
-  print(co_point)
-  return img[:, :co_point]
+  return crop_image(res)  # Crop any empty pixels to reduce image sizes
 
 def combine_images(images: list):
-  # TODO: Extend to work with multiple images (we want to do it pairwise)
-  pass
+  prev_res = images[0]
+  for i in range(1, len(images)):
+    prev_res = pair_wise_match(prev_res, images[i])
+  return prev_res
 
-
-image1 = cv2.imread('image1.png')
-image2 = cv2.imread('image2.png')
-pair_wise_match(image1, image2)
+# Test...
+# image1 = cv2.imread('image1.png')
+# image2 = cv2.imread('image2.png')
+# pair_wise_match(image1, image2)
