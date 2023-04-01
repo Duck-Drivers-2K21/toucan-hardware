@@ -18,13 +18,11 @@ def set_pos(pwm, pos):
     pwm.ChangeDutyCycle(dc)
     time.sleep(0.1)
     pwm.ChangeDutyCycle(0)
-    time.sleep(2)
 
 def capture_view(pwm) -> list:
     images = []
-    for pos in range(45, 181, 45):
+    for pos in range(40, 141, 20):
+        set_pos(pwm, pos)
         images.append(capture_image(0))
         time.sleep(1)
-        set_pos(pwm, pos)
-    set_pos(pwm, 0)  # Reset camera position
     return images
