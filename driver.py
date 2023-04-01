@@ -21,10 +21,11 @@ if __name__ == '__main__':
     for j in range(2):
         print(f"Capturing images (reverse={reverse})")
         images = observation.capture_view(pwm, reverse)
-        for i in range(len(images)):
-            cv2.imwrite(f"img{i}.png", images[i])
+        # for i in range(len(images)):
+        #     cv2.imwrite(f"img{i}.png", images[i])
         print("Combining images and writing to file")
-        cv2.imwrite(f"result_{j}.png", preprocessor.combine_images(images))  # TODO: Send result to pipeline
+        cv2.imwrite(f"result_{j}.png", preprocessor.combine_images(images))
+        # TODO: Send result to pipeline
         reverse = not reverse
 
     pwm.stop()
