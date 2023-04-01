@@ -12,12 +12,14 @@ if __name__ == '__main__':
 
     pwm = GPIO.PWM(servo_pin, frequency)
     pwm.start(0)
-
+    print("Capturing images")
     images = observation.capture_view(pwm)
     for i in range(len(images)):
         cv2.imwrite(f"img{i}.png", images[i])
-
+    print("Combining images")
     result = preprocessor.combine_images(images)
+
+    print("Writing result to file")
     cv2.imwrite("result.png", result)
 
     pwm.stop()
