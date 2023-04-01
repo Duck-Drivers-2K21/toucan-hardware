@@ -13,6 +13,8 @@ reverse = False
 i = 0
 
 def get_frame():
+    global reverse
+    global i  # TODO: Remove i
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(SERVO_PIN, GPIO.OUT)
 
