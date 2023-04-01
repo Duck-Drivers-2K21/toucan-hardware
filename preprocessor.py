@@ -52,7 +52,8 @@ def combine_images(images: list):
   mid_idx = (len(images) - 1) // 2
   h1 = images[:mid_idx]
   h2 = images[mid_idx:].reverse()
-  return pair_wise_match(h1, h2)
+
+  return pair_wise_match(_combine_images(h1), _combine_images(h2))
 
 # Test...
 # image1 = cv2.imread('image1.png')
