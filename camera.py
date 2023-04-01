@@ -1,6 +1,6 @@
 import cv2
 
-def capture_image(camera_idx):
+def get_frame(camera_idx):
   camera = cv2.VideoCapture(camera_idx)
   try:
     if not camera.isOpened():

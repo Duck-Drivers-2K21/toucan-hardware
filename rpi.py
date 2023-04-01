@@ -1,10 +1,7 @@
 import cv2
-
 import RPi.GPIO as GPIO
-
 import observation
 import preprocessor
-
 
 SERVO_PIN = 22
 FREQUENCY = 50  # in hz
@@ -12,7 +9,7 @@ FREQUENCY = 50  # in hz
 reverse = False
 i = 0
 
-def get_frame():
+def get_frame(camera_idx):
     global reverse
     global i  # TODO: Remove i
     GPIO.setmode(GPIO.BOARD)
@@ -22,7 +19,7 @@ def get_frame():
     pwm.start(0)
 
     print(f"Capturing images (reverse={reverse})")
-    images = observation.capture_view(pwm, reverse)
+    images = observation.capture_view(camera_idx, pwm, reverse)
     # for i in range(len(images)):
     #     cv2.imwrite(f"img{i}.png", images[i])
     print("Combining images and writing to file")
