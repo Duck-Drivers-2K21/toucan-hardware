@@ -42,6 +42,7 @@ def combine_images(images: list):
   prev_res = images[0]
   for i in range(1, len(images)):
     prev_res = pair_wise_match(prev_res, images[i])
+    cv2.imwrite(f"res_{i-1}_with_{i}.png", prev_res)
   return prev_res
 
 # Test...
