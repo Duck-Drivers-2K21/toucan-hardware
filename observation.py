@@ -1,6 +1,10 @@
 import cv2
 import time
 
+START = 60
+END = 120
+INC = 20
+
 def capture_image(camera_idx):
     camera = cv2.VideoCapture(camera_idx)
     if not camera.isOpened():
@@ -19,9 +23,12 @@ def set_pos(pwm, pos):
     time.sleep(0.1)
     pwm.ChangeDutyCycle(0)
 
-def capture_view(pwm) -> list:
+def capture_view(pwm, reverse = False) -> list:
     images = []
-    for pos in range(60, 121, 20):
+    start = START if not reverse else END
+    end = END if not reverse else START
+    inc = INC if not reverse else -INC
+    for pos in range(start, end + 1, inc):
         set_pos(pwm, pos)
         images.append(capture_image(0))
         time.sleep(1)
