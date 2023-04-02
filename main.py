@@ -27,9 +27,9 @@ def upload_image_to_s3(frame, bucket_name, s3_key):
   :return: A dictionary with the result of the operation, including success status and error messages if any.
   """
 
-  s3 = boto3.client('s3', aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
+  s3 = boto3.client('s3', region_name="eu-west-2", aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
                   aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'])
-  sqs = boto3.client('sqs', aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
+  sqs = boto3.client('sqs', region_name="eu-west-2", aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
                   aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'])
   # Encode the frame as a JPEG image
   retval, buffer = cv2.imencode('.jpg', frame)
