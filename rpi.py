@@ -49,6 +49,7 @@ def get_frame(camera_idx):
     images = capture_view(camera_idx, pwm, reverse)
     # for i in range(len(images)):
     #     cv2.imwrite(f"img{i}.png", images[i])
+    reverse = not reverse
     pwm.stop()
     GPIO.cleanup()
     print(f"Combining {len(images)} images")
