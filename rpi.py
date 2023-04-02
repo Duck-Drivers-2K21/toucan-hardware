@@ -1,5 +1,4 @@
 from time import sleep
-import cv2
 import RPi.GPIO as GPIO
 
 import preprocessor
