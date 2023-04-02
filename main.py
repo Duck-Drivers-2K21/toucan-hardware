@@ -63,12 +63,10 @@ def upload_image_to_s3(frame, bucket_name, s3_key):
 
 
 def main():
-  i = 0
   while True:
     try:
       frame = get_frame(CAMERA_IDX)
-      cv2.imwrite(f'out{i}.png', frame)  # TODO: Remove save
-      i += 1
+      cv2.imwrite('out.png', frame)  # TODO: Remove save before tapeout
       print(upload_image_to_s3(frame, BUCKET_NAME, str(uuid.uuid4()) + '.jpg'))
     except Exception as E:
       print(E)
